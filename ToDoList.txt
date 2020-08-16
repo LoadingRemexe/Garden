@@ -1,0 +1,5 @@
+August 16 ----
+ - Implement Saving For Golem Peices
+ - Change controls for pachinko to be mouse Only
+ - Change controls for menu to be mouse Only
+ - Begin remodelling Fae Folk

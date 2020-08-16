@@ -4,16 +4,38 @@ using UnityEngine;
 
 public class GolemSlot : MonoBehaviour
 {
-    public BodyPartData bodyData = null;
+    [SerializeField] public eLocation part = eLocation.NONE;
+    public string currentPartName { get; private set; } = "";
+    public Mesh currentMesh = null;
 
-
-    public void UpdateBodyData(BodyPartData bodyPart)
+    public enum eLocation
     {
-        bodyData = bodyPart;
-        if (bodyData)
+        _L_FOOT,
+        _L_KNEE,
+        _L_HIP,
+        _L_HAND,
+        _L_FOREARM,
+        _L_SHOULDER,
+        _CHEST,
+        _WAIST,
+        _HEAD,
+        _R_SHOULDER,
+        _R_FOREARM,
+        _R_HAND,
+        _R_HIP,
+        _R_KNEE,
+        _R_FOOT,
+        NONE
+    }
+
+    public void UpdateBodyData(Mesh bodyPart)
+    {
+        if (bodyPart)
         {
-            GetComponent<MeshCollider>().sharedMesh = bodyData.m_Model;
-            GetComponent<MeshFilter>().mesh = bodyData.m_Model;
+            currentMesh = bodyPart;
+            currentPartName = bodyPart.name.Substring(0, bodyPart.name.IndexOf('_'));
+            GetComponent<MeshCollider>().sharedMesh = bodyPart;
+            GetComponent<MeshFilter>().mesh = bodyPart;
         }
     }
 }

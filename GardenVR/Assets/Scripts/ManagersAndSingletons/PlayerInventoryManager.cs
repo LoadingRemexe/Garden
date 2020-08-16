@@ -7,7 +7,7 @@ public class PlayerInventoryManager : Singleton<PlayerInventoryManager>
 {
     public int PachinkoPlays = 0;
     public Dictionary<PlaceableData, int> seeds = new Dictionary<PlaceableData, int>();
-    List<BodyPartData> PlayerInventory = new List<BodyPartData>();
+   // List<BodyPartData> PlayerInventory = new List<BodyPartData>();
 
     public void Start()
     {
@@ -43,7 +43,7 @@ public class PlayerInventoryManager : Singleton<PlayerInventoryManager>
         {
             seeds.Add(placeable, 3);
         }
-        PlayerInventory.Clear();
+      //  PlayerInventory.Clear();
         PachinkoPlays = 3;
     }
 

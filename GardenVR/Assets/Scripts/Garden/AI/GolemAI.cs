@@ -8,6 +8,7 @@ public class GolemAI : MonoBehaviour
 {
     [Header("Model")]
     public Animator anim;
+    GolemPartController partcontroller;
 
     [Header("Agent")]
     public NavMeshAgent nma;
@@ -16,41 +17,10 @@ public class GolemAI : MonoBehaviour
     float waitMax = 5.0f;
     bool stopAtDestination = false;
 
-    [Header("Data")]
-    public GolemSlot[] slots;
-    public BodyPartData[] parts;
-
     void Start()
     {
-        slots = FindObjectsOfType<GolemSlot>();
-        LoadParts();
-    }
-
-    void LoadParts()
-    {
-        SaveData.GolemPair[] pairs = SaveManager.Instance.saveData.golemSave.pairs;
-        if (pairs != null && pairs.Count() > 0)
-        {
-            foreach (SaveData.GolemPair pair in pairs)
-            {
-                BodyPartData part = parts.Where(p => p.m_Location == (BodyPartData.eLocation)pair.eLocation).FirstOrDefault();
-                GolemSlot slot = slots.Where(s => s.bodyData.m_Location == (BodyPartData.eLocation)pair.eLocation).FirstOrDefault();
-                if (part && slot)
-                {
-                    slot.UpdateBodyData(part);
-                }
-            }
-        } else
-        {
-            foreach (GolemSlot slot in slots)
-            {
-                BodyPartData part = parts.Where(p => p.m_Location == slot.bodyData.m_Location && p.m_set == BodyPartData.eSet.STONE).FirstOrDefault();
-                if (part && slot)
-                {
-                    slot.UpdateBodyData(part);
-                }
-            }
-        }
+        partcontroller = GetComponent<GolemPartController>();
+        partcontroller.Load();
     }
 
     void Update()
